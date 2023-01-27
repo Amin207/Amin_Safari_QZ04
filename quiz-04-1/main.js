@@ -19,26 +19,26 @@ const renderTable = () => {
 		</tr>`;
 
   let rowCount = 1;
-  tours.forEach((tour, i) => {
-    console.log(i);
-    if (rowCount <= getLimit()) {
-      tableBody.innerHTML += `
+  for (
+    let i = handleFirstIndex();
+    i <= handleFirstIndex() + (getLimit() - 1);
+    i++
+  ) {
+    tableBody.innerHTML += `
 				  <tr>
 					  <th scope="row">${rowCount}</th>
-					  <td>${tour.id}</td>
-					  <td>${tour.name}</td>
-					  <td>${tour.location}</td>
-					  <td>${tour.price}</td>
-					  <td>${tour.maxGroupSize}</td>
-					  <td>${tour.difficulty}</td>
-					  <td>${tour.duration}</td>
-					  <td>${tour.ratingsAverage}</td>
-					  <td>${tour.ratingsQuantity}</td>
+					  <td>${tours[i].id}</td>
+					  <td>${tours[i].name}</td>
+					  <td>${tours[i].location}</td>
+					  <td>${tours[i].price}</td>
+					  <td>${tours[i].maxGroupSize}</td>
+					  <td>${tours[i].difficulty}</td>
+					  <td>${tours[i].duration}</td>
+					  <td>${tours[i].ratingsAverage}</td>
+					  <td>${tours[i].ratingsQuantity}</td>
 				  </tr>`;
-
-      rowCount += 1;
-    }
-  });
+    rowCount += 1;
+  }
 };
 
 const params = new URLSearchParams(window.location.search);
@@ -57,7 +57,7 @@ const setPage = (num) => {
 
 const getLimit = () => {
   if (params.get("limit") === null) {
-    return 1;
+    return 999;
   } else {
     return params.get("limit");
   }
@@ -65,6 +65,10 @@ const getLimit = () => {
 
 const setLimit = (num) => {
   params.set("limit", num);
+};
+
+const handleFirstIndex = () => {
+  return (getPage() - 1) * getLimit();
 };
 
 console.log("**************");
