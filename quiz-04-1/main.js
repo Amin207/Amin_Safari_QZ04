@@ -17,29 +17,39 @@ const renderTable = () => {
 		</tr>`;
 
   let rowCount = 1;
-  for (const tour of tours) {
-    tableBody.innerHTML += `
-			<tr>
-				<th scope="row">${rowCount}</th>
-				<td>${tour.id}</td>
-				<td>${tour.name}</td>
-				<td>${tour.location}</td>
-				<td>${tour.price}</td>
-				<td>${tour.maxGroupSize}</td>
-				<td>${tour.difficulty}</td>
-				<td>${tour.duration}</td>
-				<td>${tour.ratingsAverage}</td>
-				<td>${tour.ratingsQuantity}</td>
-			</tr>`;
+  //   for(let i = 0; i < getLimit() i++) {
 
-    rowCount += 1;
-  }
+  //   }
+  tours.forEach((tour, i) => {
+    console.log(i);
+    if (rowCount <= getLimit()) {
+      tableBody.innerHTML += `
+				  <tr>
+					  <th scope="row">${rowCount}</th>
+					  <td>${tour.id}</td>
+					  <td>${tour.name}</td>
+					  <td>${tour.location}</td>
+					  <td>${tour.price}</td>
+					  <td>${tour.maxGroupSize}</td>
+					  <td>${tour.difficulty}</td>
+					  <td>${tour.duration}</td>
+					  <td>${tour.ratingsAverage}</td>
+					  <td>${tour.ratingsQuantity}</td>
+				  </tr>`;
+
+      rowCount += 1;
+    }
+  });
 };
 
 const params = new URLSearchParams(window.location.search);
 
 const getPage = () => {
-  return params.get("page");
+  if (params.get("page") === null) {
+    return 1;
+  } else {
+    return params.get("page");
+  }
 };
 
 const setPage = (num) => {
@@ -47,14 +57,23 @@ const setPage = (num) => {
 };
 
 const getLimit = () => {
-  return params.get("limit");
+  if (params.get("limit") === null) {
+    return 1;
+  } else {
+    return params.get("limit");
+  }
 };
 
 const setLimit = (num) => {
   params.set("limit", num);
 };
 
+setLimit(5);
+
+console.log("**************");
 console.log(params.toString());
-console.log(getLimit());
+console.log("Page: ", getPage());
+console.log("Limit: ", getLimit());
+console.log("**************");
 
 renderTable();
