@@ -1,7 +1,9 @@
 const tableHead = document.querySelector("thead");
 const tableBody = document.querySelector("tbody");
+const showURL = document.getElementById("URL_SHOWUP");
 
 const renderTable = () => {
+  showURL.innerHTML = `/quiz-04-1/index.html?${params.toString()}`;
   tableHead.innerHTML = `
 		<tr>
 			<th scope="col">No.</th>
@@ -17,9 +19,6 @@ const renderTable = () => {
 		</tr>`;
 
   let rowCount = 1;
-  //   for(let i = 0; i < getLimit() i++) {
-
-  //   }
   tours.forEach((tour, i) => {
     console.log(i);
     if (rowCount <= getLimit()) {
@@ -67,8 +66,6 @@ const getLimit = () => {
 const setLimit = (num) => {
   params.set("limit", num);
 };
-
-setLimit(5);
 
 console.log("**************");
 console.log(params.toString());
