@@ -1,8 +1,8 @@
-const tableHead = document.querySelector('thead');
-const tableBody = document.querySelector('tbody');
+const tableHead = document.querySelector("thead");
+const tableBody = document.querySelector("tbody");
 
 const renderTable = () => {
-	tableHead.innerHTML = `
+  tableHead.innerHTML = `
 		<tr>
 			<th scope="col">No.</th>
 			<th scope="col">Tour ID</th>
@@ -16,9 +16,9 @@ const renderTable = () => {
 			<th scope="col">Ratings Quantity</th>
 		</tr>`;
 
-	let rowCount = 1;
-	for (const tour of tours) {
-		tableBody.innerHTML += `
+  let rowCount = 1;
+  for (const tour of tours) {
+    tableBody.innerHTML += `
 			<tr>
 				<th scope="row">${rowCount}</th>
 				<td>${tour.id}</td>
@@ -32,8 +32,29 @@ const renderTable = () => {
 				<td>${tour.ratingsQuantity}</td>
 			</tr>`;
 
-		rowCount += 1;
-	}
+    rowCount += 1;
+  }
 };
+
+const params = new URLSearchParams(window.location.search);
+
+const getPage = () => {
+  return params.get("page");
+};
+
+const setPage = (num) => {
+  params.set("page", num);
+};
+
+const getLimit = () => {
+  return params.get("limit");
+};
+
+const setLimit = (num) => {
+  params.set("limit", num);
+};
+
+console.log(params.toString());
+console.log(getLimit());
 
 renderTable();
